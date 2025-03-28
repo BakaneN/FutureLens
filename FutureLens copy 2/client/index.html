@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FutureLens – Career Guide</title>
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
+  <script src="firebase-config.js"></script>
+
+  <style>
+    .image-header {
+      width: 100%;
+      height: 700px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .image-header img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo">FutureLens</div>
+      <button class="burger" id="burger">&#9776;</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#">Explore Careers</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><button id="loginBtn">Login</button></li>
+        <li><button id="registerBtn">Register</button></li>
+      </ul>
+    </nav>
+
+    <!-- 🔥 Image Header Section -->
+    <div class="image-header">
+      <img src="doctors.webp" alt="Header Image - Doctors" />
+    </div>
+
+    <div class="hero">
+      <h1>FutureLens</h1>
+      <h1>See your future, one career at a time</h1>
+      <p>Get real, personalized steps to achieve your dream career.</p>
+    </div>
+  </header>
+
+  <main>
+    <section id="career-form">
+      <input type="text" id="careerInput" placeholder="Enter your dream career..." />
+      <button onclick="getCareerInfo()">Explore</button>
+    </section>
+
+    <section id="career-result"></section>
+
+    <section id="career-history">
+      <h3>Search History</h3>
+      <a href="history.html" class="history-btn">View Full Career History</a>
+    </section>
+
+    <section id="about">
+      <h3>About FutureLens</h3>
+      <p>
+        FutureLens is built to inspire the next generation. Our mission is to help children explore careers from a young age
+        by making it simple, engaging, and informative. With real-life data, simplified steps, and a glimpse into daily
+        routines, we help young minds visualize and plan their future—one dream at a time.
+      </p>
+    </section>
+  </main>
+
+  <section id="career-videos" class="career-videos">
+    <h2>Career Spotlights</h2>
+    <div class="video-grid">
+      <div class="video-card">
+        <h3>Software Engineer</h3>
+        <iframe src="https://www.youtube.com/embed/QPzmsQ86_HM" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="video-card">
+        <h3>Heart Doctor</h3>
+        <iframe src="https://www.youtube.com/embed/U91AUYttTyc" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="video-card">
+        <h3>Soccer Player</h3>
+        <iframe src="https://www.youtube.com/embed/Enyf7p59sZQ" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="video-card">
+        <h3>Fire Fighter</h3>
+        <iframe src="https://www.youtube.com/embed/RbG_9BaiEhw" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="video-card">
+        <h3>Pilot</h3>
+        <iframe src="https://www.youtube.com/embed/h4zKpJ3tY58" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="video-card">
+        <h3>Dancer</h3>
+        <iframe src="https://www.youtube.com/embed/LQ9ixEuD3EU" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact-section">
+    <h2>Contact Us</h2>
+    <p>Have questions or feedback? Let’s talk.</p>
+    <form class="contact-form">
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="email" name="email" placeholder="Your Email" required />
+      <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>© 2025 FutureLens. Built with purpose.</p>
+    <div class="footer-links">
+      <p>Connect with me:</p>
+      <a href="https://linkedin.com/in/your-link" target="_blank">LinkedIn</a> |
+      <a href="https://github.com/your-username" target="_blank">GitHub</a> |
+      <a href="https://twitter.com/your-handle" target="_blank">Twitter</a>
+    </div>
+  </footer>
+
+  <!-- Auth Modal -->
+  <div id="auth-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2 id="auth-title">Login</h2>
+      <input type="email" id="auth-email" placeholder="Email" />
+      <input type="password" id="auth-password" placeholder="Password" />
+      <button id="auth-action-btn">Login</button>
+      <p id="toggle-auth-mode">Don't have an account? <span>Register</span></p>
+      <button id="close-auth">Close</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    const burger = document.getElementById('burger');
+    const navLinks = document.getElementById('navLinks');
+
+    burger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+  </script>
+</body>
+</html>

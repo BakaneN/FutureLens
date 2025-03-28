@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Career History – FutureLens</title>
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
+
+  <!-- Firebase Config -->
+  <script src="firebase-config.js"></script>
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo">FutureLens</div>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+      </ul>
+    </nav>
+    <div class="hero">
+      <h1>Career History</h1>
+      <p>Here's everything you've searched for so far.</p>
+    </div>
+  </header>
+
+  <main>
+    <section id="career-history">
+      <h3>Your Search History</h3>
+      <ul id="full-history-list"></ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 FutureLens. Built with purpose.</p>
+  </footer>
+
+  <script>
+    async function loadFullCareerHistory() {
+      const user = firebase.auth().currentUser;
+
+      if (!user) {
+        document.getElementById('full-history-list').innerHTML =
+          "<li>Please log in to view your career history.</li>";
+        return;
+      }
+
+      const token = await user.getIdToken();
+
+      const res = await fetch('/api/history', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      const history = await res.json();
+      const list = document.getElementById('full-history-list');
+
+      if (!history.length) {
+        list.innerHTML = '<li>No history found.</li>';
+        return;
+      }
+
+      history.forEach(item => {
+        const li = document.createElement('li');
+        li.innerHTML = `<strong>${item.career}</strong>: ${item.result}`;
+        list.appendChild(li);
+      });
+    }
+
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        loadFullCareerHistory();
+      } else {
+        document.getElementById('full-history-list').innerHTML =
+          "<li>Please log in to view your career history.</li>";
+      }
+    });
+  </script>
+</body>
+</html>
